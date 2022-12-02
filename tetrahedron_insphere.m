@@ -1,5 +1,5 @@
 function [I, r, rc] = tetrahedron_insphere(A, B, C, D, option_display)
-%% tetrahedron_insphere : function to compute and display the insphere of a given tetrahedron.
+%% tetrahedron_insphere : function to compute, display, and save the insphere centre and radius of a given tetrahedron.
 %
 % Author & support : nicolas.douillet (at) free.fr, 2022.
 %
@@ -13,9 +13,11 @@ function [I, r, rc] = tetrahedron_insphere(A, B, C, D, option_display)
 %
 % Description
 %
-% tetrahedron_insphere(A, B, C, D) computes and displays the insphere of ABC tetrahedron.
-% tetrahedron_insphere(A, B, C, D, option_display) displays ABCD tetrahedron and with its insphere when option_display is set either to
-% logical true or real numeric 1, and doesn't when it is set to logical false or real numeric 0.
+% tetrahedron_insphere(A, B, C, D) computes and displays the insphere of ABCD tetrahedron.
+% tetrahedron_insphere(A, B, C, D, option_display) displays ABCD tetrahedron and with its insphere when
+% option_display is set either to logical true or real numeric 1, and doesn't when it is set to logical
+% false or real numeric 0.
+%
 % [I, r, rc] = tetrahedron_insphere(A, B, C, D, option_display) stores the results in [I, r, rc] vector.
 %
 %
@@ -28,17 +30,7 @@ function [I, r, rc] = tetrahedron_insphere(A, B, C, D, option_display)
 % - A = [Ay] : real column vector double. numel(A) = 3. One of the four ABCD vertices.
 %       [Az]
 %
-%       [Bx]
-% - B = [By] real column vector double. numel(A) = 3. One of the four ABCD vertices.
-%       [Bz]
-%
-%       [Cx]
-% - C = [Cy] real column vector double. numel(A) = 3. One of the four ABCD vertices.
-%       [Cz]
-%
-%       [Dx]
-% - D = [Dy] real column vector double. numel(A) = 3. One of the four ABCD vertices.
-%       [Dz]
+% - B, C, D : same type and description as A, here above.
 %
 % - option_display : logical *true(1) / false(0), to enable/disable the display mode.
 %
@@ -58,41 +50,39 @@ function [I, r, rc] = tetrahedron_insphere(A, B, C, D, option_display)
 % Example #1
 % Random tetrahedron from the 3D space
 % V = 2*(rand(3,4)-0.5);
-% [I,radius] = tetrahedron_insphere(V(:,1),V(:,2),V(:,3),V(:,4),true);
+% tetrahedron_insphere(V(:,1),V(:,2),V(:,3),V(:,4),true);
 %
 %
 % Example #2
 % Regular tetrahedron in the unit ball
-% V1 = [0 0 1]';
-% V2 = [2*sqrt(2)/3 0 -1/3]';
-% V3 = [-sqrt(2)/3 sqrt(6)/3 -1/3]';
-% V4 = [-sqrt(2)/3 -sqrt(6)/3 -1/3]';
-% [I,radius,rc] = tetrahedron_insphere(V1,V2,V3,V4,true);
-% rc % expected : rc = 1
+% A = [0 0 1]';
+% B = [2*sqrt(2)/3 0 -1/3]';
+% C = [-sqrt(2)/3 sqrt(6)/3 -1/3]';
+% D = [-sqrt(2)/3 -sqrt(6)/3 -1/3]';
+% [I,r] = tetrahedron_insphere(A,B,C,D,true) % expected : I = [0 0 0]; r = 1/3;
 %
 %
 % Example #3
 % Flat / degenerated tetrahedron 
-% V1 = [0 0 0]';
-% V2 = [1 0 0]';
-% V3 = [0 1 0]';
-% V4 = [1 1 0]';
-% [I,radius,rc] = tetrahedron_insphere(V1,V2,V3,V4,true);
+% A = [0 0 0]';
+% B = [1 0 0]';
+% C = [0 1 0]';
+% D = [1 1 0]';
+% [I,r,rc] = tetrahedron_insphere(A,B,C,D,true);
 % rc % expected : rc = 0
 
 
 %% Input parsing
-assert(nargin > 3, 'Not enought input arguments. Three input points are required to define one tetrahedron.');
+assert(nargin > 3, 'Not enought input arguments. Four input points are required to define one tetrahedron.');
 assert(nargin < 6, 'Too many input arguments.');
+assert(isequal(size(A),size(B),size(C),size(D),[3 1]),'All inputs points must have the same size.');
+assert(isequal(ndims(A),ndims(B),ndims(C),ndims(D),2),'All inputs points must have the same number of dimensions (2).');
+assert(isreal(A) && isreal(B) && isreal(C) && isreal(D),'All inputs points must contain real numbers only.');
+assert(numel(A) == 3,'Input points must have exactly 3 elements.');
 
 if nargin < 5    
     option_display = true;            
 end
-
-assert(isequal(size(A),size(B),size(C),size(D)),'All inputs points must have the same size.');
-assert(isequal(ndims(A),ndims(B),ndims(C),ndims(D),2),'All inputs points must have the same number of dimensions (2).');
-assert(isreal(A) && isreal(B) && isreal(C) && isreal(D),'All inputs points must contain real numbers only.');
-assert(numel(A) == 3,'Input points must have exactly 3 elements.');
 
 
 %% Body
@@ -159,14 +149,12 @@ I = line_plane_intersection(u1,I1,n5,H_BC);
 n = cross(AB,AC);
 r = point_to_plane_distance(I',n',A');
 
-% Sphere
-[Sx,Sy,Sz] = sphere(60);
-
 
 %% Display
 if option_display
     
-    V = cat(2,A,B,C,D);
+    V = cat(2,A,B,C,D);    
+    [Sx,Sy,Sz] = sphere(60);
     cmap_tetra = cat(3,ones(size(Sx)),zeros(size(Sy)),zeros(size(Sz)));
     vtx_triplets = combnk(1:4,3);
     

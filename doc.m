@@ -16,10 +16,11 @@
 %
 %% Description
 %
-% tetrahedron_insphere(A, B, C, D) computes and displays the insphere of ABC tetrahedron.
+% tetrahedron_insphere(A, B, C, D) computes and displays the insphere of ABCD tetrahedron.
 %
-% tetrahedron_insphere(A, B, C, D, option_display) displays ABCD tetrahedron and with its insphere when option_display is set either to
-% logical true or real numeric 1, and doesn't when it is set to logical false or real numeric 0.
+% tetrahedron_insphere(A, B, C, D, option_display) displays ABCD tetrahedron and with its insphere when
+% option_display is set either to logical true or real numeric 1, and doesn't when it is set to logical
+% false or real numeric 0.
 %
 % [I, r, rc] = tetrahedron_insphere(A, B, C, D, option_display) stores the results in [I, r, rc] vector.
 %
@@ -36,17 +37,7 @@
 % - A = [Ay] : real column vector double. numel(A) = 3. One of the four ABCD vertices.
 %        [Az]
 %
-%        [Bx]
-% - B = [By] real column vector double. numel(A) = 3. One of the four ABCD vertices.
-%        [Bz]
-%
-%        [Cx]
-% - C = [Cy] real column vector double. numel(A) = 3. One of the four ABCD vertices.
-%        [Cz]
-%
-%        [Dx]
-% - D = [Dy] real column vector double. numel(A) = 3. One of the four ABCD vertices.
-%        [Dz]
+% - B, C, D : same type and description as A, here above.
 %
 % - option_display : logical *true(1) / false(0), to enable/disable the display mode.
 %
@@ -70,18 +61,17 @@ tetrahedron_insphere(V(:,1),V(:,2),V(:,3),V(:,4));
 
 %% Example #2
 % Regular tetrahedron in the unit ball
-V1 = [0 0 1]';
-V2 = [2*sqrt(2)/3 0 -1/3]';
-V3 = [-sqrt(2)/3 sqrt(6)/3 -1/3]';
-V4 = [-sqrt(2)/3 -sqrt(6)/3 -1/3]';
-[I,radius,rc] = tetrahedron_insphere(V1,V2,V3,V4,true);
-rc % expected : rc = 1
+A = [0 0 1]';
+B = [2*sqrt(2)/3 0 -1/3]';
+C = [-sqrt(2)/3 sqrt(6)/3 -1/3]';
+D = [-sqrt(2)/3 -sqrt(6)/3 -1/3]';
+[I,r] = tetrahedron_insphere(A,B,C,D,true) % expected : I = [0 0 0]; r = 1/3;
 
 %% Example #3
 % Flat / degenerated tetrahedron 
-V1 = [0 0 0]';
-V2 = [1 0 0]';
-V3 = [0 1 0]';
-V4 = [1 1 0]';
-[I,radius,rc] = tetrahedron_insphere(V1,V2,V3,V4,true);
+A = [0 0 0]';
+B = [1 0 0]';
+C = [0 1 0]';
+D = [1 1 0]';
+[I,r,rc] = tetrahedron_insphere(A,B,C,D,true);
 rc % expected : rc = 0
