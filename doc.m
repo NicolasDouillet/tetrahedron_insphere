@@ -27,8 +27,9 @@
 %
 %% See also
 %
-% | <https://fr.mathworks.com/matlabcentral/fileexchange/119778-triangle-incircle-3d-2d?s_tid=srchtitle triangle incircle>
-% | <https://fr.mathworks.com/matlabcentral/fileexchange/65574-tetrahedron-circumsphere?s_tid=srchtitle tetrahedron circumsphere> |
+% | <https://fr.mathworks.com/matlabcentral/fileexchange/119778-triangle-incircle-3d-2d?s_tid=srchtitle triangle incircle> |
+%   <https://fr.mathworks.com/help/matlab/ref/triangulation.incenter.html incenter> |
+%   <https://fr.mathworks.com/matlabcentral/fileexchange/65574-tetrahedron-circumsphere?s_tid=srchtitle tetrahedron circumsphere> |
 %
 %
 %% Input arguments

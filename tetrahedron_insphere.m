@@ -21,7 +21,7 @@ function [I, r, rc] = tetrahedron_insphere(A, B, C, D, option_display)
 % [I, r, rc] = tetrahedron_insphere(A, B, C, D, option_display) stores the results in [I, r, rc] vector.
 %
 %
-% See also SPHERE
+% See also INCENTER CIRCUMCENTER SPHERE
 %
 %
 % Input arguments
