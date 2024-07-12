@@ -2,7 +2,7 @@
 %
 % Function to compute and display the insphere of a given tetrahedron.
 %
-% Author & support : nicolas.douillet (at) free.fr, 2022.
+% Author : nicolas.douillet (at) free.fr, 2022-2024.
 %
 %
 %% Syntax

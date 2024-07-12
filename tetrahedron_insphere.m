@@ -1,7 +1,7 @@
 function [I, r, rc] = tetrahedron_insphere(A, B, C, D, option_display)
 %% tetrahedron_insphere : function to compute, display, and save the insphere centre and radius of a given tetrahedron.
 %
-% Author & support : nicolas.douillet (at) free.fr, 2022.
+% Author : nicolas.douillet (at) free.fr, 2022-2024.
 %
 %
 % Syntax
@@ -195,7 +195,7 @@ z_H = M(:,3) + t_H*n(3);
 
 % Orthogonal projected point
 H = cat(2,x_H,y_H,z_H);
-d2H = sqrt(sum((M-H).^2,2));
+d2H = vecnorm((M-H)',2)';
 
 
 end % point_to_plane_distance
