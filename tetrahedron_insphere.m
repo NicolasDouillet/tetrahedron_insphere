@@ -1,7 +1,7 @@
 function [I, r, rc] = tetrahedron_insphere(A, B, C, D, option_display)
 %% tetrahedron_insphere : function to compute, display, and save the insphere centre and radius of a given tetrahedron.
 %
-% Author : nicolas.douillet (at) free.fr, 2022-2024.
+% Author : nicolas.douillet9 (at) gmail.com, 2022-2024.
 %
 %
 % Syntax
@@ -150,7 +150,7 @@ n = cross(AB,AC);
 r = point_to_plane_distance(I',n',A');
 
 
-%% Display
+% Display
 if option_display
     
     V = cat(2,A,B,C,D);    
@@ -183,7 +183,7 @@ end % tetrahedron_insphere
 %% point_to_plane_distance subfunction
 function [d2H, H] = point_to_plane_distance(M, n, I)
 %
-% Author and support nicolas.douillet (at) free.fr, 2020.
+% Author : nicolas.douillet9 (at) gmail.com, 2020-2024.
 
 nb_pts = size(M,1);
 d_I = -(n(1)*I(1)+n(2)*I(2)+n(3)*I(3));
@@ -195,7 +195,7 @@ z_H = M(:,3) + t_H*n(3);
 
 % Orthogonal projected point
 H = cat(2,x_H,y_H,z_H);
-d2H = vecnorm((M-H)',2)';
+d2H = sqrt(sum((M-H).^2,2));
 
 
 end % point_to_plane_distance
@@ -204,7 +204,7 @@ end % point_to_plane_distance
 %% planes_intersection subfunction
 function [I, u, rc] = planes_intersection(n1, M1, n2, M2)
 %
-% Author & support : nicolas.douillet (at) free.fr, 2019-2022.
+% Author : nicolas.douillet9 (at) gmail.com, 2019-2024.
 
 d1 = -dot(n1,M1); % -a1*x1 - b1*y1 - c1*z1
 d2 = -dot(n2,M2); % -a2*x2 - b2*y2 - c2*z2
@@ -281,7 +281,7 @@ end % planes_intersection
 %% line_plane_intersection subfunction
 function [I,rc] = line_plane_intersection(u, N, n, M)
 %
-% Author & support : nicolas.douillet (at) free.fr, 2020 - 2022.
+% Author : nicolas.douillet9 (at) gmail.com, 2020-2024.
 
 % Plane offset parameter
 d = -dot(n,M);
